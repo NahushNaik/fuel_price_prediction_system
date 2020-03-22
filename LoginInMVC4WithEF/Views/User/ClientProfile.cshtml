@@ -1,0 +1,55 @@
+﻿@model LoginInMVC4WithEF.Models.Registration
+@{
+    ViewBag.Title = "Client Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    <div class="divcheck">
+        <fieldset>
+            <legend>Client Profile Form</legend>
+            <div class="row">
+                <div class="editor-label">@Html.LabelFor(u => u.FullName)</div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(u => u.FullName)
+                @Html.ValidationMessageFor(u => u.FullName)
+            </div>
+            <div class="editor-label">@Html.LabelFor(u => u.Address1)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(u => u.Address1)
+            @Html.ValidationMessageFor(u => u.Address1)
+        </div>
+        <div class="editor-label">@Html.LabelFor(u => u.Address2)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(u => u.Address2)
+            @Html.ValidationMessageFor(u => u.Address2)
+        </div>
+        </div>
+            <div class="editor-label">@Html.LabelFor(u => u.City)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(u => u.City)
+            @Html.ValidationMessageFor(u => u.City)
+        </div>
+            <div class="editor-label">@Html.LabelFor(u => u.State)</div>
+            <div class="editor-field">
+                @Html.DropDownListFor(u => u.State, new List<SelectListItem>
+                {
+                    new SelectListItem{ Text="OHIO", Value = "1",Selected=true },
+                    new SelectListItem{ Text="TEXAS", Value = "2" },
+                    new SelectListItem{ Text="State of Island Province", Value = "3" },
+                })
+                @Html.ValidationMessageFor(u => u.State)
+            </div>
+            <div class="editor-label">@Html.LabelFor(u => u.PinCode)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(u => u.PinCode)
+            @Html.ValidationMessageFor(u => u.PinCode)
+        </div>
+           
+            <br/>
+            <input type="submit" value="Save" />
+        </fieldset>
+    </div>
+}

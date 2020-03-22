@@ -1,0 +1,35 @@
+﻿@model LoginInMVC4WithEF.Models.Registration
+
+@{
+    ViewBag.Title = "LogIn";
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    <div class="divcheck">
+        <fieldset>
+            <legend>Login Form</legend>
+            <div class="editor-label">@Html.LabelFor(u => u.UserName)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(u => u.UserName)
+            @Html.ValidationMessageFor(u => u.UserName)
+        </div>
+        <div class="editor-label">@Html.LabelFor(u => u.Password)</div>
+        <div class="editor-field">
+            @Html.PasswordFor(u => u.Password)
+        @Html.ValidationMessageFor(u => u.Password)
+    </div>
+    <br />
+    <input type="submit" value="Log In" />&nbsp;&nbsp;&nbsp;
+    <input type="button" class="my-button" value="Register" name="back"
+           onclick="@("location.href='"
+        + Url.Action("Register", "User")
+        + "'")" />
+</fieldset>
+</div>
+
+}
+   

@@ -1,0 +1,49 @@
+﻿@model LoginInMVC4WithEF.Models.Registration
+@{
+    ViewBag.Title = "FuelQuoteForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    <div class="divcheck">
+        <fieldset>
+            <legend>Fuel  Quote Form</legend>
+            <div class="row">
+                <div class="editor-label">@Html.LabelFor(u => u.GallonsRequested)</div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(u => u.GallonsRequested)
+                    @Html.ValidationMessageFor(u => u.GallonsRequested)
+                </div>
+                <div class="editor-label">@Html.LabelFor(u => u.DeliveryAddress)</div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(u => u.DeliveryAddress)
+                    @Html.ValidationMessageFor(u => u.DeliveryAddress)
+                </div>
+                <div class="editor-label">@Html.LabelFor(u => u.DeliveryDate)</div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(u => u.DeliveryDate)
+                    @Html.ValidationMessageFor(u => u.DeliveryDate)
+                </div>
+            </div>
+            <div class="editor-label">@Html.LabelFor(u => u.SuggestedPrice)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(u => u.SuggestedPrice, new { disabled = "true", @Value = 50 })
+                @Html.ValidationMessageFor(u => u.SuggestedPrice)
+            </div>
+            <div class="editor-label">@Html.LabelFor(u => u.TotalAmountDue)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(u => u.TotalAmountDue, new
+                {
+                    disabled = "true",
+                    @Value = 5000
+                })
+                @Html.ValidationMessageFor(u => u.TotalAmountDue)
+            </div>
+
+                <br />
+                <input type="submit" value="Save" />
+        </fieldset>
+    </div>
+}
