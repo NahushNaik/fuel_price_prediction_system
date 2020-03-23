@@ -24,7 +24,7 @@ namespace LoginInMVC4WithEF.Models
 
         [Required]
         [StringLength(20)]
-        [Display(Name = "UserName: ")]
+        [Display(Name = "Username: ")]
         public string UserName { get; set; }
         [Required]
         [Display(Name = "State: ")]
@@ -37,7 +37,7 @@ namespace LoginInMVC4WithEF.Models
 
         [Required]
         [StringLength(9, MinimumLength = 5)]
-        [Display(Name = "PinCode: ")]
+        [Display(Name = "Pin Code: ")]
         public string PinCode { get; set; }
         [Required]
         [StringLength(100)]
