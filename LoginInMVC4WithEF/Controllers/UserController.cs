@@ -5,9 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
+using System.Windows.Forms;
 using FinTech.DataAccess;
 using LoginInMVC4WithEF.Models;
 using ProjectDataAccess;
+using Vereyon.Web;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LoginInMVC4WithEF.Controllers
 {
@@ -50,17 +54,27 @@ namespace LoginInMVC4WithEF.Controllers
                 if (IsValid(userr.UserName, userr.Password))
                 {
                     FormsAuthentication.SetAuthCookie(userr.Email, false);
+                    HttpCookie username = new HttpCookie("username");
+                    username.Value = userr.UserName;
+                    Response.Cookies.Add(username);
+                    //MessageBox.Show("Login Successful");
+                    TempData["msg"] = "<script>alert('Recored inserted successfully');</script>";
+                    ViewBag.Message = "Recored inserted successfully";
+                    //FlashMessage.Confirmation("Your login scssfil");
                     return RedirectToAction("ClientProfile", "User");
                 }
                 else
                 {
+                    ViewBag.Message = "Login details are wrong";
                     ModelState.AddModelError("", "Login details are wrong.");
                 }
             }
             else
             {
+               
                 ModelState.AddModelError("", "Error, Check data");
             }
+
             return View(userr);
         }
 
@@ -148,6 +162,7 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpPost]
         public ActionResult ClientProfile(Models.Registration users)
         {
+            string username = null;
             try
             {
 
@@ -160,22 +175,32 @@ namespace LoginInMVC4WithEF.Controllers
                 ModelState.Remove("TotalAmountDue");
                 if (ModelState.IsValid)
                 {
-                    using (var db = new LoginInMVC4WithEF.Models.UserEntities2())
+                    using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
                     {
-                        var crypto = new SimpleCrypto.PBKDF2();
+                        if (Request.Cookies["username"] != null)
+                            username = Request.Cookies["username"].Value;
+                        //HttpCookie username = Request.Cookies["username"];
+                        User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == username).FirstOrDefault();
+                        //var crypto = new SimpleCrypto.PBKDF2();
                         //var encrypPass = crypto.Compute(user.Password);
                         //var newUser = db.Registrations.Create();
                         //newUser.Email = user.Email;
                         //newUser.Password = encrypPass;
                         //newUser.PasswordSalt = crypto.Salt;
-                        //newUser.FirstName = user.FirstName;
-                        //newUser.LastName = user.LastName;
+                        //FirstName = User.FirstName;
+                        //LastName = User.LastName;
+                        userobj.FullName = users.FullName;
+                        userobj.Address1 = users.Address1;
+                        userobj.Address2 = users.Address2;
+                        userobj.City = users.City;
+                        userobj.State = users.State;
+                        userobj.ZipCode = users.PinCode;
                         //newUser.UserType = "User";
                         //newUser.CreatedDate = DateTime.Now;
                         //newUser.IsActive = true;
                         //newUser.IPAddress = "642 White Hague Avenue";
                         //db.Registrations.Add(newUser);
-                        db.SaveChanges();
+                        dbContext.Commit();
                         return RedirectToAction("FuelQuoteForm", "User");
                     }
                 }
@@ -268,19 +293,21 @@ namespace LoginInMVC4WithEF.Controllers
 
         private bool IsValid(string email, string password)
         {
-            var crypto = new SimpleCrypto.PBKDF2();
+            //var crypto = new SimpleCrypto.PBKDF2();
             bool IsValid = false;
 
-            using (var db = new LoginInMVC4WithEF.Models.UserEntities2())
+            using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
             {
                 //var user = db.Registrations.FirstOrDefault(u => u.Email == email);
-                //if (user != null)
-                //{
-                //    if (user.Password == crypto.Compute(password, user.PasswordSalt))
-                //    {
-                IsValid = true;
-                //    }
-                //}
+                User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == email).FirstOrDefault();
+                if (userobj != null)
+                {
+                    //if (user.Password == crypto.Compute(password, user.PasswordSalt))
+                    if (userobj.Password == password)
+                    {
+                        IsValid = true;
+                    }
+                }
             }
             return IsValid;
         }

@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "LoginTest";
+    Layout = "~/Views/Shared/LoginTest.cshtml";
+}
+
+<h2>LoginTest</h2>
+@using (Html.BeginForm())
+{
+
+        <li>@Html.ActionLink("Employees List", "LoginTest", "User")</li>
+}
