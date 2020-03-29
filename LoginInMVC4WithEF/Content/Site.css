@@ -1,9 +1,9 @@
 ﻿body {
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    color: #232323;
+    //color: #232323;
     background-image: url('images/Capture.png');
-    background-color: #FF6600;
+    //background-color: #FF6600;
     width: 100%;
     height: 200%;
     zoom: 110%;
@@ -15,8 +15,8 @@ header, footer, nav, section {
 }
 
 .divcheck{
-	color: white;
-  background:#669999;
+	color: black;
+  //background:#669999;
   padding: 15px;
   position: absolute;
   top: 50%;
@@ -29,20 +29,73 @@ header, footer, nav, section {
 /* Styles for basic forms
 -----------------------------------------------------------*/
 fieldset {
-    border: 1px solid #ddd;
-    padding: 0 1.4em 1.4em 1.4em;
-    margin: 0 0 1.5em 0;
+    //border: 1px solid #ddd;
+    //padding: 0 1.4em 1.4em 1.4em;
+    //margin: 0 0 1.5em 0;
 }
 .bg {
     background-image: url('images/Annotation.png');
-    background-color: #FF6600;
+    //background-color: #FF6600;
     width: 100%;
     height:100%;
 }
 
-legend {
-    font-size: 1.2em;
+.pass {
+    width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 10px;
+    border-radius: 100px;
+}
+.label {
+    color: #000000;
     font-weight: bold;
+    display: block;
+    width: 400px;
+    /*float: left;*/
+}
+
+   
+input[type=text] {
+    width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 10px;
+    border-radius: 100px;
+}
+
+    input[type=text]:focus {
+       border-color: #333;
+    }
+
+input[type=submit] {
+    padding: 5px 15px;
+    width: 150px;
+    border: 2 none;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+  
+}
+
+input[type=button] {
+    width: 150px;
+    padding: 5px 15px;
+    border: 2 none;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+   
+}
+
+
+legend {
+    font-size: 1.5em;
+    font-weight: bold;
+ 
+   
 }
 
 textarea {

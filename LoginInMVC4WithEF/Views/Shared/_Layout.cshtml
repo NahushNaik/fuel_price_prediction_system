@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" />
-         @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
+    @Scripts.Render("~/bundles/modernizr")
+ </head>
+    <body>
 
-    
+
         @if (Request.IsAuthenticated)
         {
             <strong>@Html.Encode(User.Identity.Name)</strong>
@@ -21,8 +21,8 @@
                 <span> | </span>
                 @Html.ActionLink("Log In", "Login", "User")*@
         }
-    @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
-</body>
+        @RenderBody()
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

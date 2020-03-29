@@ -136,12 +136,18 @@ namespace UnitTestFuelProject
             List<Registration>  reg = Login();
             LoginTestController controller = new LoginTestController();
             ViewResult result = controller.LoginTest() as ViewResult;
-            var redirectResult = controller.LogInTest(reg[0]) as RedirectToRouteResult;
-            //RedirectResult redirectResult = (RedirectResult)controller.LogInTest(reg[0]) as RedirectResult;
+            var redirectResult1 = controller.LogInTest(reg[0]) as RedirectToRouteResult;
+
+            var redirectResult2 = controller.ClientProfileTest(reg[0]) as RedirectToRouteResult;
+
+
             Assert.IsNotNull(result);
-            //Assert.AreEqual(redirectResult.Url, "/User/ClientProfile");
-            Assert.AreEqual("ClientProfile", redirectResult.RouteValues["action"]);
-            Assert.AreEqual("User", redirectResult.RouteValues["controller"]);
+
+            Assert.AreEqual("ClientProfile", redirectResult1.RouteValues["action"]);
+            Assert.AreEqual("User", redirectResult1.RouteValues["controller"]);
+
+            Assert.AreEqual("FuelQuoteForm", redirectResult2.RouteValues["action"]);
+            Assert.AreEqual("User", redirectResult2.RouteValues["controller"]);
         }
     }
 }
