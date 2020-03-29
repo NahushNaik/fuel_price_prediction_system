@@ -57,10 +57,8 @@ namespace LoginInMVC4WithEF.Controllers
                     HttpCookie username = new HttpCookie("username");
                     username.Value = userr.UserName;
                     Response.Cookies.Add(username);
-                    MessageBox.Show("Login Successful");
                     TempData["msg"] = "<script>alert('Recored inserted successfully');</script>";
                     ViewBag.Message = "Recored inserted successfully";
-                    //FlashMessage.Confirmation("Your login successful");
                     return RedirectToAction("ClientProfile", "User");
                 }
                 else
