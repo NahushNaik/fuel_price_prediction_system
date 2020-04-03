@@ -4,73 +4,11 @@ using System.Web.Mvc;
 using LoginInMVC4WithEF.Controllers;
 using LoginInMVC4WithEF.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework.Internal;
 
 namespace UnitTestFuelProject
 {
-    [TestClass]
-    public class LoginTests
-    {
-        [TestMethod]
-        public void UsernameAndPassword_Valid_ReturnsTrue()
-        {
-
-        }
-
-        [TestMethod]
-        public void UsernameAndPassword_Invalid_ReturnsFalse()
-        {
-        }
-
-        [TestMethod]
-        public void UsernameAndPassword_Blank_ReturnsFalse()
-        {
-        }
-
-        [TestMethod]
-        public void Password_Astrisk_ReturnsTrue()
-        {
-        }
-    }
-
-    [TestClass]
-    public class RegistrationTests
-    {
-        [TestMethod]
-        public void PasswordLength_LessThan8_ReturnsFalse()
-        {
-        }
-
-        [TestMethod]
-        public void PasswordLength_GreaterThan16_ReturnsFalse()
-        {
-        }
-
-        [TestMethod]
-        public void PasswordLength_GreaterThan7LessThan17_ReturnsTrue()
-        {
-
-        }
-
-        [TestMethod]
-        public void Password_IsValid_ReturnsTrue()
-        {
-        }
-
-        [TestMethod]
-        public void Password_IsBlank_ReturnsFalse()
-        {
-        }
-
-        [TestMethod]
-        public void Username_IsValid_ReturnsTrue()
-        {
-        }
-
-        [TestMethod]
-        public void Username_IsBlank_ReturnsFalse()
-        {
-        }
-    }
+    
     [TestClass]
     public class HomeControllerTest
     {
@@ -126,20 +64,50 @@ namespace UnitTestFuelProject
                                                 State = "Texas",
                                                 PinCode = "77025",
                                                 IsActive = true,
+                                                GallonsRequested = 50,
+                                                SuggestedPrice = 5000,
+                                                DeliveryDate = DateTime.Parse("2020-04-03")
                                                 //CreatedBy = "",
                                                 //CreatedDate = DateTime.Parse(DateTime.Today.ToString()),
                                                 //ModifiedBy = "",
                                                 //ModifiedDate = DateTime.Parse(DateTime.Today.ToString()),
                                             },
+                                            new Registration{
+                                                UserId = 2,
+                                                UserName = "nahushmnaik",
+                                                Password = "abcd1234",
+                                                FullName = "Nahush Naik",
+                                                Address1 = "4045 Linkwood Drive",
+                                                Address2 = "641",
+                                                City = "Houston",
+                                                State = "Texas",
+                                                PinCode = "77025",
+                                                IsActive = true,
+                                                GallonsRequested = 55,
+                                                SuggestedPrice = 4000,
+                                                DeliveryDate = DateTime.Parse("2020-04-02")
+                                                //CreatedBy = "",
+                                                //CreatedDate = DateTime.Parse(DateTime.Today.ToString()),
+                                                //ModifiedBy = "",
+                                                //ModifiedDate = DateTime.Parse(DateTime.Today.ToString()),
+                                            }
                                 };
             }
-            List<Registration>  reg = Login();
+            List<Registration> reg = Login();
             LoginTestController controller = new LoginTestController();
             ViewResult result = controller.LoginTest() as ViewResult;
+
             var redirectResult1 = controller.LogInTest(reg[0]) as RedirectToRouteResult;
 
             var redirectResult2 = controller.ClientProfileTest(reg[0]) as RedirectToRouteResult;
 
+            var redirectResult3 = controller.LogInTest(reg[1]) as RedirectToRouteResult;
+
+            var redirectResult4 = controller.ClientProfileTest(reg[1]) as RedirectToRouteResult;
+
+            var redirectResult5 = controller.FuelQuoteForm(reg[0]) as RedirectToRouteResult;
+
+            var redirectResult6 = controller.FuelQuoteForm(reg[1]) as RedirectToRouteResult;
 
             Assert.IsNotNull(result);
 
@@ -148,6 +116,19 @@ namespace UnitTestFuelProject
 
             Assert.AreEqual("FuelQuoteForm", redirectResult2.RouteValues["action"]);
             Assert.AreEqual("User", redirectResult2.RouteValues["controller"]);
+
+            Assert.IsNull(redirectResult3);
+            Assert.IsNull(redirectResult3);
+
+            Assert.IsNull(redirectResult4);
+            Assert.IsNull(redirectResult4);
+
+            Assert.AreEqual("FuelQuoteHistory", redirectResult5.RouteValues["action"]);
+            Assert.AreEqual("User", redirectResult5.RouteValues["controller"]);
+
+            Assert.IsNull(redirectResult6);
+            Assert.IsNull(redirectResult6);
+
         }
     }
 }

@@ -24,11 +24,21 @@ namespace LoginInMVC4WithEF.Controllers
                                                 City = "Houston",
                                                 State = "Texas",
                                                 ZipCode = "77025",
-                                                IsActive = true,
+                                                IsActive = true,                              
                                                 //CreatedBy = "",
                                                 //CreatedDate = DateTime.Parse(DateTime.Today.ToString()),
                                                 //ModifiedBy = "",
                                                 //ModifiedDate = DateTime.Parse(DateTime.Today.ToString()),
+                                            },
+                                };
+        }
+        public List<FuelQuoteForm> FuelQuoteFormUser()
+        {
+            return new List<FuelQuoteForm>{
+                                    new FuelQuoteForm{
+                                                GallonsRequested = 50,
+                                                SuggestedPrice = 5000,
+                                                DeliveryDate = DateTime.Parse("2020-04-03")
                                             },
                                 };
         }
@@ -110,6 +120,31 @@ namespace LoginInMVC4WithEF.Controllers
                 }
             }
             return View(reg);
+        }
+        public ActionResult FuelQuoteForm(Registration reg)
+        {
+            ModelState.Remove("State");
+            ModelState.Remove("City");
+            ModelState.Remove("PinCode");
+            ModelState.Remove("Address1");
+            ModelState.Remove("Address2");
+            ModelState.Remove("FullName");
+            ModelState.Remove("Password");
+            ModelState.Remove("UserName");
+            if (ModelState.IsValid)
+            {
+                LoginTestController l = new LoginTestController();
+                List<User> intListu = l.LoginUser();
+                User u = intListu[0];
+                List<FuelQuoteForm> intListf = l.FuelQuoteFormUser();
+                FuelQuoteForm f = intListf[0];
+                if (f.GallonsRequested == reg.GallonsRequested && f.SuggestedPrice == reg.SuggestedPrice && f.DeliveryDate == reg.DeliveryDate && u.Address1 == reg.Address1 && u.Address2 == reg.Address2)
+                {
+                    RedirectToRouteResult url = RedirectToAction("FuelQuoteHistory", "User");
+                    return url;
+                }
+            }
+            return View();
         }
     }
 }
