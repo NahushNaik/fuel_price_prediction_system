@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FinTech.DataAccess;
+using ProjectDataAccess;
+using System;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using System.Web.UI;
 using System.Windows.Forms;
-using FinTech.DataAccess;
-using LoginInMVC4WithEF.Models;
-using ProjectDataAccess;
-using Vereyon.Web;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LoginInMVC4WithEF.Controllers
 {
@@ -57,12 +52,14 @@ namespace LoginInMVC4WithEF.Controllers
                     HttpCookie username = new HttpCookie("username");
                     username.Value = userr.UserName;
                     Response.Cookies.Add(username);
+                    MessageBox.Show("Login Successful");
                     TempData["msg"] = "<script>alert('Recored inserted successfully');</script>";
                     ViewBag.Message = "Recored inserted successfully";
                     return RedirectToAction("ClientProfile", "User");
                 }
                 else
                 {
+                    MessageBox.Show("Login details are wrong");
                     ViewBag.Message = "Login details are wrong";
                     ModelState.AddModelError("", "Login details are wrong.");
                 }
@@ -120,18 +117,25 @@ namespace LoginInMVC4WithEF.Controllers
                             userobj = new User();
                             isExist = false;
                             userobj.LoginId = user.UserName;
+                            MessageBox.Show("User already exists");
                         }
-             
+                        else
+                        {
+                            MessageBox.Show("User already exist");
+                        }
+
                         userobj.Password = user.Password;
                         userobj.IsActive = true;
                         userobj.CreatedBy = User.Identity.Name;
                         userobj.ModifiedBy = User.Identity.Name;
                         userobj.CreatedDate = DateTime.Now;
                         userobj.ModifiedDate = DateTime.Now;
-                        if(!isExist)
+                        if (!isExist)
                             dbContext.UserRepository.Add(userobj);
-                        dbContext.Commit();
-                        return RedirectToAction("Login", "User");
+                        
+                            dbContext.Commit();
+                            return RedirectToAction("Login", "User");
+                        
                     }
                 }
                 else

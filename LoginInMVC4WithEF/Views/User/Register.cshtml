@@ -10,7 +10,7 @@
    // @Html.ValidationSummary(true, "Registeration Failed, fields.");
     <div class="divcheck">
        
-            <legend>Register Form</legend>
+            <h1>Register Form</h1>
             <div class="editor-label">@Html.LabelFor(u => u.UserName, new { @class = "label" })</div>
             <div class="editor-field">@Html.TextBoxFor(u => u.UserName, new { @class = "text" })
                 @Html.ValidationMessageFor(u => u.UserName)

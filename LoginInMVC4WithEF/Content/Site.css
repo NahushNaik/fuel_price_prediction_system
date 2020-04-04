@@ -1,9 +1,9 @@
 ﻿body {
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    //color: #232323;
+    
     background-image: url('images/Capture.png');
-    //background-color: #FF6600;
+   
     width: 100%;
     height: 200%;
     zoom: 110%;
@@ -11,12 +11,12 @@
 }
 
 header, footer, nav, section {
-   // display: block;
+   
 }
 
 .divcheck{
 	color: black;
-  //background:#669999;
+  
   padding: 15px;
   position: absolute;
   top: 50%;
@@ -29,13 +29,11 @@ header, footer, nav, section {
 /* Styles for basic forms
 -----------------------------------------------------------*/
 fieldset {
-    //border: 1px solid #ddd;
-    //padding: 0 1.4em 1.4em 1.4em;
-    //margin: 0 0 1.5em 0;
+  
 }
 .bg {
     background-image: url('images/Annotation.png');
-    //background-color: #FF6600;
+   
     width: 100%;
     height:100%;
 }
@@ -71,7 +69,7 @@ input[type=text] {
 input[type=submit] {
     padding: 5px 15px;
     width: 150px;
-    border: 2 none;
+    border: 2px;
     cursor: pointer;
     -webkit-border-radius: 5px;
     border-radius: 10px;
@@ -82,7 +80,7 @@ input[type=submit] {
 input[type=button] {
     width: 150px;
     padding: 5px 15px;
-    border: 2 none;
+    border: 2px;
     cursor: pointer;
     -webkit-border-radius: 5px;
     border-radius: 10px;
@@ -94,8 +92,6 @@ input[type=button] {
 legend {
     font-size: 1.5em;
     font-weight: bold;
- 
-   
 }
 
 textarea {
