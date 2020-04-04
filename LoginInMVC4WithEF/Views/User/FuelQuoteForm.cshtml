@@ -24,7 +24,7 @@
                     <!--@Html.LabelFor(u => u.DeliveryAddress)-->
                 </div>
                     <div class="editor-field">
-                        @Html.TextBoxFor(u => u.DeliveryAddress)
+                        @Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = "4045 Linkwood Drive, 742"})
                         @Html.ValidationMessageFor(u => u.DeliveryAddress)
                     </div>
                     <div class="editor-label">
