@@ -81,7 +81,7 @@ namespace LoginInMVC4WithEF.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [StringLength(25, MinimumLength = 8)]
+        [StringLength(25, MinimumLength = 6)]
         [Display(Name = "Password: ")]
         public string Password { get; set; }
 
