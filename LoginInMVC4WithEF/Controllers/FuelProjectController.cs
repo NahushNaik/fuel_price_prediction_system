@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace LoginInMVC4WithEF.Controllers
 {
-    public class LoginTestController : Controller
+    public class FuelProjectController : Controller
     {
 
         public List<User> LoginUser()
@@ -78,7 +78,7 @@ namespace LoginInMVC4WithEF.Controllers
             if (ModelState.IsValid)
             {
                 bool IsValid = false;
-                LoginTestController l = new LoginTestController();
+                FuelProjectController l = new FuelProjectController();
                 List<User> intList = l.LoginUser();
                 User u = intList[0];
                 if (u.LoginId == reg.UserName)
@@ -107,7 +107,7 @@ namespace LoginInMVC4WithEF.Controllers
             ModelState.Remove("TotalAmountDue");
             if (ModelState.IsValid)
             {
-                LoginTestController l = new LoginTestController();
+                FuelProjectController l = new FuelProjectController();
                 List<User> intList = l.LoginUser();
                 User u = intList[0];
                 if (u.LoginId == reg.UserName)
@@ -133,7 +133,7 @@ namespace LoginInMVC4WithEF.Controllers
             ModelState.Remove("UserName");
             if (ModelState.IsValid)
             {
-                LoginTestController l = new LoginTestController();
+                FuelProjectController l = new FuelProjectController();
                 List<User> intListu = l.LoginUser();
                 User u = intListu[0];
                 List<FuelQuoteForm> intListf = l.FuelQuoteFormUser();

@@ -45,7 +45,7 @@ namespace UnitTestFuelProject
     }
 
     [TestClass]
-    public class LoginControllerTest
+    public class FuelProjectControllerTest
     {
         [TestMethod]
         public void Index()
@@ -94,7 +94,7 @@ namespace UnitTestFuelProject
                                 };
             }
             List<Registration> reg = Login();
-            LoginTestController controller = new LoginTestController();
+            FuelProjectController controller = new FuelProjectController();
             ViewResult result = controller.LoginTest() as ViewResult;
 
             var redirectResult1 = controller.LogInTest(reg[0]) as RedirectToRouteResult;
