@@ -1,7 +1,7 @@
 ﻿@model LoginInMVC4WithEF.Models.Registration
 
 @{
-    ViewBag.Title = "LogIn";
+    ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,7 +22,7 @@
     <div class="divcheck">
 
 
-        <legend>Login Form</legend>
+        <legend>Login</legend>
         <div class="editor-label">
             @Html.LabelFor(u => u.UserName, new {@class= "label"})
            
@@ -43,7 +43,7 @@
                 @Html.ValidationMessageFor(u => u.Password)
             </div>
             <br />
-            <input type="submit" value="Log in" />&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Login" />&nbsp;&nbsp;&nbsp;
             <input type="button" class="my-button" value="Register" name="back"
                    onclick="@("location.href='"
 + Url.Action("Register", "User")

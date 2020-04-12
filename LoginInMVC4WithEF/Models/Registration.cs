@@ -12,99 +12,90 @@ namespace LoginInMVC4WithEF.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     public partial class Registration
     {
         public int UserId { get; set; }
-       
-        [EmailAddress]
-        [StringLength(150)]
-        [Display(Name = "Email Address: ")]
+
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        [Display(Name = "Email Address ")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(20)]
-        [Display(Name = "Username: ")]
+        [StringLength(25, MinimumLength = 6, ErrorMessage = "Username must be atleast 6 characters long and no more than 25")]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
-        [Required]
-        [Display(Name = "State: ")]
-        public string State { get; set; }
-        [Required]
-        [StringLength(100)]
 
-        [Display(Name = "City: ")]
+        [Required]
+        [Display(Name = "State ")]
+        public string State { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "City cannot exceed 100 characters")]
+        [Display(Name = "City ")]
         public string City { get; set; }
 
         [Required]
-        [StringLength(9, MinimumLength = 5)]
-        [Display(Name = "Pin Code: ")]
+        [StringLength(9, MinimumLength = 5, ErrorMessage ="ZIP Code must be atleast 5 characters long and no more than 9")]
+        [Display(Name = "ZIP Code ")]
         public string PinCode { get; set; }
-        [Required]
-        [StringLength(100)]
 
-        [Display(Name = "Address1: ")]
+        [Required]
+        [StringLength(100, ErrorMessage = "Address cannot exceed 100 characters")]
+        [Display(Name = "Address 1 ")]
         public string Address1 { get; set; }
-        [Required]
-        [StringLength(100)]
 
-        [Display(Name = "Address2: ")]
+        [StringLength(100, ErrorMessage = "Address cannot exceed 100 characters")]
+        [Display(Name = "Address 2 ")]
         public string Address2 { get; set; }
-        [Required]
-        [StringLength(50)]
-        [Display(Name = "FullName: ")]
+
+        [Required(ErrorMessage = "Please enter you full name")]
+        [StringLength(50, ErrorMessage = "Full Name cannot exceed 50 characters")]
+        [Display(Name = "Full Name ")]
         public string FullName { get; set; }
 
-        [Required]
-        [Display(Name = "GallonsRequested: ")]
+        [Required(ErrorMessage = "Gallons Requested is required")]
+        [Display(Name = "Gallons Requested ")]
         public int GallonsRequested { get; set; }
 
         [Required]
         [StringLength(100)]
-
-        [Display(Name = "DeliveryAddress: ")]
+        [Display(Name = "Delivery Address ")]
         public string DeliveryAddress { get; set; }
 
         [Required]
-
-        [Display(Name = "DeliveryDate: ")]
+        [Display(Name = "Delivery Date ")]
         public DateTime DeliveryDate { get; set; }
 
         [Required]
-
-        [Display(Name = "SuggestedPrice: ")]
+        [Display(Name = "Suggested Price ")]
         public int SuggestedPrice { get; set; }
 
         [Required]
-
-        [Display(Name = "TotalAmountDue: ")]
+        [Display(Name = "Total Amount Due ")]
         public int TotalAmountDue { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [StringLength(150, MinimumLength = 6)]
-        [Display(Name = "Password: ")]
+        [MinLength(8, ErrorMessage = "Password must be atleast 8 characters long")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         public string PasswordSalt { get; set; }
 
-        [Display(Name = "First Name: ")]
+        [Display(Name = "First Name ")]
         public string FirstName { get; set; }
-               
-        [Display(Name = "Last Name: ")]
-        public string LastName { get; set; } 
-        public string UserType { get; set; }
+
+        [Display(Name = "Last Name ")]
+        public string LastName { get; set; }
+
         public System.DateTime CreatedDate { get; set; }
+
         public bool IsActive { get; set; }
-        public string IPAddress { get; set; }
-        public Nullable<bool> IsNewsletter { get; set; }
-        public string Company { get; set; }
-        public string Role { get; set; }
+
         public string SecurityAnswer { get; set; }
         public string SecurityQuestion { get; set; }
-        public Nullable<int> IndustryId { get; set; }
+
         public string UserImage { get; set; }
-        public Nullable<bool> Validated { get; set; }
-        public string UserIdGuid { get; set; }
-        public string HowDidYouKnow { get; set; }
     }
 }
