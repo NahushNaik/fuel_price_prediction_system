@@ -8,7 +8,8 @@
 @using (Html.BeginForm())
 {
     <div class="divcheck">
-        <legend>Fuel  Quote Form</legend>
+        
+            <h1>Fuel  Quote Form</h1>
             <div class="row">
                 <div class="editor-label">
                 @Html.Label("Gallons Requested -", new { @class = "label" })
@@ -23,7 +24,7 @@
                     <!--@Html.LabelFor(u => u.DeliveryAddress)-->
                 </div>
                     <div class="editor-field">
-                        @Html.TextBoxFor(u => u.DeliveryAddress)
+                        @Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = "4045 Linkwood Drive, 742"})
                         @Html.ValidationMessageFor(u => u.DeliveryAddress)
                     </div>
                     <div class="editor-label">

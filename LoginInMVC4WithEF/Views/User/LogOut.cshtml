@@ -4,3 +4,11 @@
 }
 
 <h2>LogOut</h2>
+using (Html.BeginForm("LogOut", "UserController", FormMethod.Post, new { id = "logoutForm"))
+{
+@Html.AntiForgeryToken()
+
+<ul>
+    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+</ul>
+}
