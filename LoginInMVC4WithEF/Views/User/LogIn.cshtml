@@ -20,36 +20,32 @@
     {
 
     <div class="divcheck">
-
-
         <h1>Login Form</h1>
         <div class="editor-label">
+            @Html.LabelFor(u => u.UserName, new { @class = "label" })
         </div>
-            @Html.LabelFor(u => u.UserName, new {@class= "label"})
-           
+        @*<asp:label text="UserName" id="lblResult" runat="server"></asp:label>*@
 
-        <asp:label text="UserName" id="lblResult" runat="server"></asp:label>
-            
-            <div class="editor-field"></div>
-                @Html.TextBoxFor(u => u.UserName, new { @class = "text" })
-
-
-                @Html.ValidationMessageFor(u => u.UserName)
-            
-            <div class="editor-label">
-            @Html.LabelFor(u => u.Password, new { @class = "label" })</div>
-            <div class="editor-field">
-                @Html.PasswordFor(u => u.Password, new { @class = "pass" })
-                @Html.ValidationMessageFor(u => u.Password)
-            </div>
-            <br />
-            <input type="submit" value="Login" />&nbsp;&nbsp;&nbsp;
-            <input type="button" class="my-button" value="Register" name="back"
-                   onclick="@("location.href='"
-+ Url.Action("Register", "User")
-+ "'")" />
-
+        <div class="editor-field">
+            @Html.TextBoxFor(u => u.UserName, new { @class = "text" })
+            @*@Html.ValidationMessageFor(u => u.UserName)*@
         </div>
+        <div class="editor-label">
+            @Html.LabelFor(u => u.Password, new { @class = "label" })
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(u => u.Password, new { @class = "pass" })
+           @* @Html.ValidationMessageFor(u => u.Password) *@
+        </div>
+        <br />
+        <input type="submit" value="Log in" />&nbsp;&nbsp;&nbsp;
+        <input type="button" class="my-button" value="Register" name="back"
+               onclick="@("location.href='" + Url.Action("Register", "User") + "'")" />
+        <div class="text-danger">
+            @Html.ValidationSummary(false)
+        </div>
+
+    </div>
 
 
     }

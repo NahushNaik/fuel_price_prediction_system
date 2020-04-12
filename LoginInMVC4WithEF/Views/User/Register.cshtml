@@ -9,19 +9,25 @@
 {
    // @Html.ValidationSummary(true, "Registeration Failed, fields.");
     <div class="divcheck">
-       
-            <h1>Register Form</h1>
-            <div class="editor-label">@Html.LabelFor(u => u.UserName, new { @class = "label" })</div>
-            <div class="editor-field">@Html.TextBoxFor(u => u.UserName, new { @class = "text" })
-                @Html.ValidationMessageFor(u => u.UserName)
-            </div>
-            <div class="editor-label">@Html.LabelFor(u => u.Password, new { @class = "label" })</div>
-            <div class="editor-field">@Html.PasswordFor(u => u.Password, new { @class = "pass" })
-                @Html.ValidationMessageFor(u => u.Password)
-            </div>
-           
-            <br/>
-            <input type="submit" value="Register" />
-       
+        <h1>Register Form</h1>
+        <div class="editor-label">
+            @Html.LabelFor(u => u.UserName, new { @class = "label" })
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(u => u.UserName, new { @class = "text" })
+            @*@Html.ValidationMessageFor(u => u.UserName)*@
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(u => u.Password, new { @class = "label" })
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(u => u.Password, new { @class = "pass" })
+            @*@Html.ValidationMessageFor(u => u.Password)*@
+        </div>
+        <br />
+        <input type="submit" value="Register" />
+        <div class="text-danger">
+            @Html.ValidationSummary(false)
+        </div>
     </div>
-}
+        }

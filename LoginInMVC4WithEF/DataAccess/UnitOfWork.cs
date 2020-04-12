@@ -13,12 +13,15 @@ namespace FinTech.DataAccess
     {
         private readonly DbContext DataContext;
         private readonly Repository<User> _UserRepository;
+        private readonly Repository<FuelQuoteForm> _FuelQuoteFormRepository;
 
         public UnitOfWorkFinance()
         {
             DataContext = new TContext();
             
             _UserRepository = new Repository<User>(DataContext.Set<User>());
+
+            _FuelQuoteFormRepository = new Repository<FuelQuoteForm>(DataContext.Set<FuelQuoteForm>());
 
         }
 
@@ -35,6 +38,14 @@ namespace FinTech.DataAccess
             get
             {
                 return _UserRepository;
+            }
+        }
+
+        public IRepository<FuelQuoteForm> FuelQuoteFormRepository
+        {
+            get
+            {
+                return _FuelQuoteFormRepository;
             }
         }
 

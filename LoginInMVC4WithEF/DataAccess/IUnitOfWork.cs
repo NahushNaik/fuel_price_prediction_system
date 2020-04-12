@@ -11,6 +11,7 @@ namespace FinTech.DataAccess
     public interface IUnitOfWork<TContext> where TContext : DbContext, IDisposable
     {
         IRepository<User> UserRepository { get; }
+        IRepository<FuelQuoteForm> FuelQuoteFormRepository { get; }
 
         void Commit();
     }

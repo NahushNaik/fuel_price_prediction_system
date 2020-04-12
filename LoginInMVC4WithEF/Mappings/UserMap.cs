@@ -30,7 +30,7 @@ namespace FinTech.Authentication.Data.Mappings
             this.Property(t => t.CreatedDate).HasColumnName("CreatedDate");
             this.Property(t => t.ModifiedBy).HasColumnName("ModifiedBy");
             this.Property(t => t.ModifiedDate).HasColumnName("ModifiedDate");
-
+            this.Property(t => t.NewUser).HasColumnName("NewUser");
 
         }
     }

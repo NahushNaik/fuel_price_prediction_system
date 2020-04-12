@@ -54,16 +54,16 @@ namespace LoginInMVC4WithEF.Models
         [Display(Name = "Full Name ")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Gallons Requested is required")]
+        [Required(ErrorMessage = "Please enter gallons requested")]
         [Display(Name = "Gallons Requested ")]
         public int GallonsRequested { get; set; }
 
-        [Required]
+        
         [StringLength(100)]
         [Display(Name = "Delivery Address ")]
         public string DeliveryAddress { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please select a delivery date")]
         [Display(Name = "Delivery Date ")]
         public DateTime DeliveryDate { get; set; }
 
@@ -75,7 +75,7 @@ namespace LoginInMVC4WithEF.Models
         [Display(Name = "Total Amount Due ")]
         public int TotalAmountDue { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter password.")]
         [DataType(DataType.Password)]
         [MinLength(8, ErrorMessage = "Password must be atleast 8 characters long")]
         [Display(Name = "Password")]
@@ -88,7 +88,7 @@ namespace LoginInMVC4WithEF.Models
 
         [Display(Name = "Last Name ")]
         public string LastName { get; set; }
-
+        public string UserType { get; set; }
         public System.DateTime CreatedDate { get; set; }
 
         public bool IsActive { get; set; }

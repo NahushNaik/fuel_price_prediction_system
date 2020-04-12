@@ -18,18 +18,53 @@ namespace LoginInMVC4WithEF.Controllers
         {
             return View();
         }
-
-
+        [HttpGet]
+        public ActionResult LogIn()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult MainPage()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult ClientProfile()
         {
             return View();
         }
         [HttpGet]
-        public ActionResult LogIn()
+        public ActionResult FuelQuoteForm()
+        {
+            string username = null;
+            string userid = null;
+            try
+            {
+                using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
+                {
+                    if (Request.Cookies["userid"] != null)
+                        userid = Request.Cookies["userid"].Value;
+                    if (Request.Cookies["username"] != null)
+                        username = Request.Cookies["username"].Value;
+                    User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == username).FirstOrDefault();
+                    ViewData["DeliveryAddress"] = userobj.Address1;
+                }
+            }
+            catch { }
+            return View();
+        }
+        [HttpGet]
+        public ActionResult FuelQuoteHistory()
         {
             return View();
         }
+        
+
         [HttpPost]
         public ActionResult LogIn(Models.Registration userr)
         {
@@ -53,41 +88,37 @@ namespace LoginInMVC4WithEF.Controllers
                     username.Value = userr.UserName;
                     Response.Cookies.Add(username);
                     MessageBox.Show("Login Successful");
-                    TempData["msg"] = "<script>alert('Recored inserted successfully');</script>";
-                    ViewBag.Message = "Recored inserted successfully";
-                    return RedirectToAction("ClientProfile", "User");
+                    //TempData["msg"] = "<script>alert('Recored inserted successfully');</script>";
+                    //ViewBag.Message = "Recored inserted successfully";
+                    using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
+                    {
+                        User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == userr.UserName).FirstOrDefault();
+                        if (userobj.NewUser == true)
+                        {
+                            return RedirectToAction("ClientProfile", "User");
+                        }
+                        else
+                        {
+                            ViewData["DeliveryAddress"] = userobj.Address1;
+                            return RedirectToAction("MainPage", "User");
+                        }
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Login details are wrong");
-                    ViewBag.Message = "Login details are wrong";
-                    ModelState.AddModelError("", "Login details are wrong.");
+                    //MessageBox.Show("Login details are wrong");
+                    //ViewBag.Message = "Login details are wrong";
+                    ModelState.AddModelError("UserNamePassword", "Invalid username or password.");
+                    //ModelState.AddModelError("Password", "");
                 }
             }
             else
-            {
-               
-                ModelState.AddModelError("", "Error, Check data");
+            { 
+                ModelState.AddModelError("Model Invalid", "");
             }
-
             return View(userr);
         }
 
-        [HttpGet]
-        public ActionResult Register()
-        {
-            return View();
-        }
-        [HttpGet]
-        public ActionResult FuelQuoteHistory()
-        {
-            return View();
-        }
-        [HttpGet]
-        public ActionResult FuelQuoteForm()
-        {
-            return View();
-        }
         [HttpPost]
         public ActionResult Register(Models.Registration user)
         {
@@ -117,19 +148,22 @@ namespace LoginInMVC4WithEF.Controllers
                             userobj = new User();
                             isExist = false;
                             userobj.LoginId = user.UserName;
-                            MessageBox.Show("User already exists");
+                            userobj.Password = user.Password;
+                            userobj.IsActive = true;
+                            userobj.NewUser = true;
+                            userobj.CreatedBy = User.Identity.Name;
+                            userobj.ModifiedBy = User.Identity.Name;
+                            userobj.CreatedDate = DateTime.Now;
+                            userobj.ModifiedDate = DateTime.Now;
+                            //MessageBox.Show("User already exists");
                         }
                         else
                         {
+                            //ModelState.AddModelError("User already exist", "User already exist");
                             MessageBox.Show("User already exist");
+                            return RedirectToAction("Login", "User");
                         }
 
-                        userobj.Password = user.Password;
-                        userobj.IsActive = true;
-                        userobj.CreatedBy = User.Identity.Name;
-                        userobj.ModifiedBy = User.Identity.Name;
-                        userobj.CreatedDate = DateTime.Now;
-                        userobj.ModifiedDate = DateTime.Now;
                         if (!isExist)
                             dbContext.UserRepository.Add(userobj);
                         
@@ -140,7 +174,7 @@ namespace LoginInMVC4WithEF.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Data is not correct");
+                   ModelState.AddModelError("", "");
                 }
             }
             catch (DbEntityValidationException e)
@@ -197,13 +231,14 @@ namespace LoginInMVC4WithEF.Controllers
                         userobj.City = users.City;
                         userobj.State = users.State;
                         userobj.ZipCode = users.PinCode;
+                        userobj.NewUser = false;
                         //newUser.UserType = "User";
                         //newUser.CreatedDate = DateTime.Now;
                         //newUser.IsActive = true;
                         //newUser.IPAddress = "642 White Hague Avenue";
                         //db.Registrations.Add(newUser);
                         dbContext.Commit();
-                        return RedirectToAction("FuelQuoteForm", "User");
+                        return RedirectToAction("MainPage", "User");
                     }
                 }
                 else
@@ -232,41 +267,68 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpPost]
         public ActionResult FuelQuoteForm(Models.Registration users)
         {
+            string username = null;
+            string userid = null;
             try
             {
-
-                ModelState.Remove("State");
-                ModelState.Remove("City");
-                ModelState.Remove("PinCode");
-                ModelState.Remove("Address1");
-                ModelState.Remove("Address2");
-                ModelState.Remove("FullName");
-                ModelState.Remove("Password");
-                ModelState.Remove("UserName");
-                if (ModelState.IsValid)
+                using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
                 {
-                    using (var db = new LoginInMVC4WithEF.Models.UserEntities2())
+                    if (Request.Cookies["userid"] != null)
+                        userid = Request.Cookies["userid"].Value;
+                    if (Request.Cookies["username"] != null)
+                        username = Request.Cookies["username"].Value;
+                    User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == username).FirstOrDefault();
+                    users.DeliveryAddress = userobj.Address1;
+                    ViewData["DeliveryAddress"] = userobj.Address1;
+                    if (users.GallonsRequested <= 0) 
                     {
-                        var crypto = new SimpleCrypto.PBKDF2();
-                        //var encrypPass = crypto.Compute(user.Password);
-                        //var newUser = db.Registrations.Create();
-                        //newUser.Email = user.Email;
-                        //newUser.Password = encrypPass;
-                        //newUser.PasswordSalt = crypto.Salt;
-                        //newUser.FirstName = user.FirstName;
-                        //newUser.LastName = user.LastName;
-                        //newUser.UserType = "User";
-                        //newUser.CreatedDate = DateTime.Now;
-                        //newUser.IsActive = true;
-                        //newUser.IPAddress = "642 White Hague Avenue";
-                        //db.Registrations.Add(newUser);
-                        db.SaveChanges();
+                        //ModelState.Remove("GallonsRequested");
+                        ModelState.AddModelError("Gallons requested zero or negative", "Gallons requested can not be zero or negative.");
+                    }
+                    ModelState.Remove("State");
+                    ModelState.Remove("City");
+                    ModelState.Remove("PinCode");
+                    ModelState.Remove("Address1");
+                    ModelState.Remove("Address2");
+                    ModelState.Remove("FullName");
+                    ModelState.Remove("Password");
+                    ModelState.Remove("UserName");
+
+                    if (ModelState.IsValid)
+                    {
+                        var obj = new FuelQuoteForm
+                        {
+                            UserId = Convert.ToInt16(userid),
+                            GallonsRequested = users.GallonsRequested,
+                            DeliveryDate = users.DeliveryDate,
+                            SuggestedPrice = users.SuggestedPrice,
+                            
+                        };
+
+                        dbContext.FuelQuoteFormRepository.Add(obj);
+                        dbContext.Commit();
                         return RedirectToAction("FuelQuoteHistory", "User");
                     }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Data is not correct");
+                    //var crypto = new SimpleCrypto.PBKDF2();
+                    //var encrypPass = crypto.Compute(user.Password);
+                    //var newUser = db.Registrations.Create();
+                    //newUser.Email = user.Email;
+                    //newUser.Password = encrypPass;
+                    //newUser.PasswordSalt = crypto.Salt;
+                    //newUser.FirstName = user.FirstName;
+                    //newUser.LastName = user.LastName;
+                    //newUser.UserType = "User";
+                    //newUser.CreatedDate = DateTime.Now;
+                    //newUser.IsActive = true;
+                    //newUser.IPAddress = "642 White Hague Avenue";
+                    //db.Registrations.Add(newUser);
+                    //db.SaveChanges();
+                    //return RedirectToAction("FuelQuoteHistory", "User");
+
+                    else
+                    {
+                        ModelState.AddModelError("", "");
+                    }
                 }
             }
             catch (DbEntityValidationException e)
@@ -284,7 +346,7 @@ namespace LoginInMVC4WithEF.Controllers
                 throw;
             }
 
-            return View();
+            return View(users);
         }
 
         public ActionResult LogOut()
@@ -308,6 +370,9 @@ namespace LoginInMVC4WithEF.Controllers
                     if (userobj.Password == password)
                     {
                         IsValid = true;
+                        HttpCookie userid = new HttpCookie("userid");
+                        userid.Value = userobj.UserId.ToString();
+                        Response.Cookies.Add(userid);
                     }
                 }
             }

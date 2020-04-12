@@ -8,74 +8,90 @@
 @using (Html.BeginForm())
 {
     <div class="divcheck">
-        
-            <h1>Fuel  Quote Form</h1>
-            <div class="row">
-                <div class="editor-label">
-                @Html.Label("Gallons Requested -", new { @class = "label" })
-                <!--@Html.LabelFor(u => u.GallonsRequested)-->
-                    </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(u => u.GallonsRequested)
-                    @Html.ValidationMessageFor(u => u.GallonsRequested)
-                </div>
-                <div class="editor-label">
-                    @Html.Label("Delivery Address -", new { @class = "label" })
-                    <!--@Html.LabelFor(u => u.DeliveryAddress)-->
-                </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = "4045 Linkwood Drive, 742"})
-                        @Html.ValidationMessageFor(u => u.DeliveryAddress)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("Delivery Date -", new { @class = "label" })
-                        <!--  @Html.LabelFor(u => u.DeliveryDate)-->
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(u => u.DeliveryDate)
-                        @Html.ValidationMessageFor(u => u.DeliveryDate)
-                        @*@Html.TextBoxFor(u => u.DeliveryDate, "{0:dd-MM-yyyy}", new { htmlAttributes = new { @class = "datepicker" } })*@
-                        @*<input type="date" class="form-control">*@
-                    </div>
-            </div>
+        <h1>Fuel  Quote Form</h1>
+        <div class="editor-label">
+            @Html.Label("Gallons Requested -", new { @class = "label" })
+            <!--@Html.LabelFor(u => u.GallonsRequested)-->
+        </div>
 
-            <div class="editor-label">
-                @Html.Label("Suggested Price -", new { @class = "label" })
-                <!--@Html.LabelFor(u => u.SuggestedPrice)-->
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(u => u.SuggestedPrice, new { disabled = "true", @Value = 50 })
-                @Html.ValidationMessageFor(u => u.SuggestedPrice)
-            </div>
-            <div class="editor-label">
-                @Html.Label("Total Amount Due - ", new { @class = "label" })
-                <!-- @Html.LabelFor(u => u.TotalAmountDue)-->
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(u => u.TotalAmountDue, new
-                {
-                    disabled = "true",
-                    @Value = 5000
-                })
-                @Html.ValidationMessageFor(u => u.TotalAmountDue)
-            </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(u => u.GallonsRequested)
+            @*@Html.ValidationMessageFor(u => u.GallonsRequested)*@
+        </div>
 
+        <div class="editor-label">
+            @Html.Label("Delivery Address -", new { @class = "label" })
+            <!--@Html.LabelFor(u => u.DeliveryAddress)-->
+        </div>
+
+        <div class="editor-field">
+            @*@Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = "4045 Linkwood Drive, 742"})*@
+            @Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = ViewData["DeliveryAddress"].ToString() })
+            @*@Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = Model.DeliveryAddress })*@
+            @*@Html.ValidationMessageFor(u => u.DeliveryAddress)*@
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Delivery Date -", new { @class = "label" })
+            <!--  @Html.LabelFor(u => u.DeliveryDate)-->
+        </div>
+
+        <div class="editor-field">
+            @Html.TextBoxFor(u => u.DeliveryDate)
+            @*@Html.ValidationMessageFor(u => u.DeliveryDate)*@
+            @*@Html.TextBoxFor(u => u.DeliveryDate, "{0:dd-MM-yyyy}", new { htmlAttributes = new { @class = "datepicker" } })*@
+            @*<input type="date" class="form-control">*@
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Suggested Price -", new { @class = "label" })
+            <!--@Html.LabelFor(u => u.SuggestedPrice)-->
+        </div>
+
+        <div class="editor-field">
+            @Html.TextBoxFor(u => u.SuggestedPrice, new { disabled = "true", @Value = 50 })
+            @Html.ValidationMessageFor(u => u.SuggestedPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Total Amount Due - ", new { @class = "label" })
+            <!-- @Html.LabelFor(u => u.TotalAmountDue)-->
+        </div>
+
+        <div class="editor-field">
+            @Html.TextBoxFor(u => u.TotalAmountDue, new
+            {
+                disabled = "true",
+                @Value = 5000
+            })
+            @Html.ValidationMessageFor(u => u.TotalAmountDue)
+        </div>
         <br />
-        <input type="submit" value="Save" />
+
+        <div class="divcheck">
+            <input type="button" value="Get Quote" onclick="@("location.href='" + Url.Action("Register", "User") + "'")" />
+            <input type="submit" value="Accept Quote" />
+        </div>
+
+        <div class="text-danger">
+            @Html.ValidationSummary(false)
+        </div>
+
     </div>
 }
 @*<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
-@section scripts{
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    @section scripts{
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
-    <script>
-        $(function () {
-            $('.datepicker').datepicker({
-                dateFormat: 'dd/mm/yy',
-                changeMonth: true,
-                changeYear: true
+        <script>
+            $(function () {
+                $('.datepicker').datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    changeMonth: true,
+                    changeYear: true
+                });
             });
-        });
-    </script>
-    }*@ 
+        </script>
+        }*@
+

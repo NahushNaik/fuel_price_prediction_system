@@ -13,7 +13,7 @@ namespace ProjectDataAccess
 
         public int GallonsRequested { get; set; }
 
-        public System.DateTime DeliveryDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
 
         public int SuggestedPrice { get; set; }
 

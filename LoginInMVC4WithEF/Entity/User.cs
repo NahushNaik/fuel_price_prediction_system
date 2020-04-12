@@ -23,6 +23,7 @@ namespace ProjectDataAccess
         public string State { get; set; }
         public string ZipCode { get; set; }
         public bool IsActive { get; set; } 
+        public bool NewUser { get; set; }
         public string CreatedBy { get; set; } 
         public System.DateTime CreatedDate { get; set; } 
         public string ModifiedBy { get; set; } 
