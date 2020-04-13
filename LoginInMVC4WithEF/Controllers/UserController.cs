@@ -1,6 +1,7 @@
 ﻿using FinTech.DataAccess;
 using ProjectDataAccess;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
@@ -61,7 +62,7 @@ namespace LoginInMVC4WithEF.Controllers
                     if (Request.Cookies["username"] != null)
                         username = Request.Cookies["username"].Value;
                     User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == username).FirstOrDefault();
-                    ViewData["DeliveryAddress"] = userobj.Address1;
+                    ViewData["DeliveryAddress"] = userobj.Address1 + "," + userobj.Address2 + "," + userobj.City + "," + userobj.State;
                 }
             }
             catch { }
@@ -70,13 +71,28 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpGet]
         public ActionResult FuelQuoteHistory()
         {
-            if (Session["ValidLogin"].Equals(false))
+            IEnumerable<FuelQuoteForm> list = null;
+
+
+            using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
             {
-                return RedirectToAction("LogIn", "User");
+                string username = null;
+                string userid = null; 
+                try
+                {
+                    if (Request.Cookies["userid"] != null)
+                        userid = Request.Cookies["userid"].Value;
+                    if (Request.Cookies["username"] != null)
+                        username = Request.Cookies["username"].Value;
+                    //var result = (from item1 in dbContext.FuelQuoteFormRepository.GetAll().Where(x => x.UserId.ToString() == userid) join item2 in dbContext.UserRepository)
+                }
+                catch (Exception ex)
+                { 
+                
+                }
             }
             return View();
         }
-        
 
         [HttpPost]
         public ActionResult LogIn(Models.Registration userr)
@@ -302,8 +318,8 @@ namespace LoginInMVC4WithEF.Controllers
                     if (Request.Cookies["username"] != null)
                         username = Request.Cookies["username"].Value;
                     User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == username).FirstOrDefault();
-                    users.DeliveryAddress = userobj.Address1;
-                    ViewData["DeliveryAddress"] = userobj.Address1;
+                    //users.DeliveryAddress = userobj.Address1;
+                    ViewData["DeliveryAddress"] = userobj.Address1 + "," + userobj.Address2 + "," + userobj.City + "," + userobj.State;
                     if (users.GallonsRequested <= 0) 
                     {
                         //ModelState.Remove("GallonsRequested");
@@ -325,8 +341,8 @@ namespace LoginInMVC4WithEF.Controllers
                             UserId = Convert.ToInt16(userid),
                             GallonsRequested = users.GallonsRequested,
                             DeliveryDate = users.DeliveryDate,
+                            DeliveryAddress = userobj.Address1 + "," + userobj.Address2 + "," + userobj.City + "," + userobj.State,
                             SuggestedPrice = users.SuggestedPrice,
-                            
                         };
 
                         dbContext.FuelQuoteFormRepository.Add(obj);
@@ -370,10 +386,14 @@ namespace LoginInMVC4WithEF.Controllers
                 throw;
             }
 
-            return View(users);
+            return View();
         }
-
-        public ActionResult LogOut()
+        [HttpPost]
+        public ActionResult GetQuote(Models.Registration users)
+        {
+            return View();
+        }
+            public ActionResult LogOut()
         {
             Session["ValidLogin"] = false;
             FormsAuthentication.SignOut();

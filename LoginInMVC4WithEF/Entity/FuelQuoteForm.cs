@@ -15,6 +15,8 @@ namespace ProjectDataAccess
 
         public DateTime? DeliveryDate { get; set; }
 
+        public string DeliveryAddress { get; set; }
+
         public int SuggestedPrice { get; set; }
 
         public int TotalAmountDue { get; set; }
