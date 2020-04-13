@@ -12,6 +12,7 @@ namespace LoginInMVC4WithEF.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Configuration;
 
     public partial class Registration
     {
@@ -36,7 +37,7 @@ namespace LoginInMVC4WithEF.Models
         public string City { get; set; }
 
         [Required]
-        [StringLength(9, MinimumLength = 5, ErrorMessage ="ZIP Code must be atleast 5 characters long and no more than 9")]
+        [StringLength(9, MinimumLength = 5, ErrorMessage = "ZIP Code must be atleast 5 characters long and no more than 9")]
         [Display(Name = "ZIP Code ")]
         public string PinCode { get; set; }
 
@@ -58,7 +59,7 @@ namespace LoginInMVC4WithEF.Models
         [Display(Name = "Gallons Requested ")]
         public int GallonsRequested { get; set; }
 
-        
+
         [StringLength(100)]
         [Display(Name = "Delivery Address ")]
         public string DeliveryAddress { get; set; }
@@ -80,6 +81,10 @@ namespace LoginInMVC4WithEF.Models
         [MinLength(8, ErrorMessage = "Password must be atleast 8 characters long")]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        [Compare("Password", ErrorMessage = "Passwords do not match, please try again")]
+        [Display(Name = "Confirm Password")]
+        public string Confirm { get; set; }
 
         public string PasswordSalt { get; set; }
 

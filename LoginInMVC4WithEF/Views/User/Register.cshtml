@@ -24,6 +24,13 @@
             @Html.PasswordFor(u => u.Password, new { @class = "pass" })
             @*@Html.ValidationMessageFor(u => u.Password)*@
         </div>
+        <div class="editor-label">
+            @Html.LabelFor(u => u.Confirm, new { @class = "label" })
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(u => u.Confirm, new { @class = "pass" })
+            @*@Html.ValidationMessageFor(u => u.Password)*@
+        </div>
         <br />
         <input type="submit" value="Register" />
         <div class="text-danger">

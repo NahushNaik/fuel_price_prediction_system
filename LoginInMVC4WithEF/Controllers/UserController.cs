@@ -36,11 +36,20 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpGet]
         public ActionResult ClientProfile()
         {
+            if (Session["ValidLogin"].Equals(false))
+            {
+                MessageBox.Show("Please login again");
+                return RedirectToAction("LogIn", "User");
+            }
             return View();
         }
         [HttpGet]
         public ActionResult FuelQuoteForm()
         {
+            if (Session["ValidLogin"].Equals(false))
+            {
+                return RedirectToAction("LogIn", "User");
+            }
             string username = null;
             string userid = null;
             try
@@ -61,6 +70,10 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpGet]
         public ActionResult FuelQuoteHistory()
         {
+            if (Session["ValidLogin"].Equals(false))
+            {
+                return RedirectToAction("LogIn", "User");
+            }
             return View();
         }
         
@@ -68,6 +81,7 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpPost]
         public ActionResult LogIn(Models.Registration userr)
         {
+            ModelState.Remove("Confirm");
             ModelState.Remove("State");
             ModelState.Remove("City");
             ModelState.Remove("PinCode");
@@ -83,6 +97,7 @@ namespace LoginInMVC4WithEF.Controllers
             {
                 if (IsValid(userr.UserName, userr.Password))
                 {
+                    Session["ValidLogin"] = true;
                     FormsAuthentication.SetAuthCookie(userr.Email, false);
                     HttpCookie username = new HttpCookie("username");
                     username.Value = userr.UserName;
@@ -198,6 +213,11 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpPost]
         public ActionResult ClientProfile(Models.Registration users)
         {
+            if (Session["ValidLogin"].Equals(false))
+            {
+                return RedirectToAction("LogIn", "User");
+            }
+
             string username = null;
             try
             {
@@ -267,6 +287,10 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpPost]
         public ActionResult FuelQuoteForm(Models.Registration users)
         {
+            if (Session["ValidLogin"].Equals(false))
+            {
+                return RedirectToAction("LogIn", "User");
+            }
             string username = null;
             string userid = null;
             try
@@ -351,6 +375,7 @@ namespace LoginInMVC4WithEF.Controllers
 
         public ActionResult LogOut()
         {
+            Session["ValidLogin"] = false;
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "User");
         }
