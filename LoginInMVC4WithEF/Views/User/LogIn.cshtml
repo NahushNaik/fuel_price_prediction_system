@@ -12,6 +12,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -20,29 +22,32 @@
     {
 
     <div class="divcheck">
-        <h1>Login Form</h1>
-        <div class="editor-label">
-            @Html.LabelFor(u => u.UserName, new { @class = "label" })
-        </div>
-        @*<asp:label text="UserName" id="lblResult" runat="server"></asp:label>*@
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <div class="jumbotron" style="background-color: rgba(245, 245, 245, 0.5);">
+            <h1>Please sign in </h1>
+            <div class="editor-label">
+                @Html.LabelFor(u => u.UserName, new { @class = "label" })
+            </div>
+            @*<asp:label text="UserName" id="lblResult" runat="server"></asp:label>*@
 
-        <div class="editor-field">
-            @Html.TextBoxFor(u => u.UserName, new { @class = "text" })
-            @*@Html.ValidationMessageFor(u => u.UserName)*@
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(u => u.Password, new { @class = "label" })
-        </div>
-        <div class="editor-field">
-            @Html.PasswordFor(u => u.Password, new { @class = "pass" })
-           @* @Html.ValidationMessageFor(u => u.Password) *@
-        </div>
-        <br />
-        <input type="submit" value="Log in" />&nbsp;&nbsp;&nbsp;
-        <input type="button" class="my-button" value="Register" name="back"
-               onclick="@("location.href='" + Url.Action("Register", "User") + "'")" />
-        <div class="text-danger">
-            @Html.ValidationSummary(false)
+            <div class="editor-field">
+                @Html.TextBoxFor(u => u.UserName, new { @class = "text" })
+                @*@Html.ValidationMessageFor(u => u.UserName)*@
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(u => u.Password, new { @class = "label" })
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(u => u.Password, new { @class = "pass" })
+                @* @Html.ValidationMessageFor(u => u.Password) *@
+            </div>
+            <br />
+            <input type="submit" class="btn btn-primary" value="Log in" />&nbsp;&nbsp;&nbsp;
+            <input type="button" class="my-button" value="Register" name="back"
+                   onclick="@("location.href='" + Url.Action("Register", "User") + "'")" />
+            <div class="text-danger">
+                @Html.ValidationSummary(false)
+            </div>
         </div>
 
     </div>

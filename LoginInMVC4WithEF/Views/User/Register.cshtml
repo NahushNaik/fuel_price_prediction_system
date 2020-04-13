@@ -4,37 +4,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
 @using (Html.BeginForm())
 {
    // @Html.ValidationSummary(true, "Registeration Failed, fields.");
     <div class="divcheck">
-        <h1>Register Form</h1>
-        <div class="editor-label">
-            @Html.LabelFor(u => u.UserName, new { @class = "label" })
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(u => u.UserName, new { @class = "text" })
-            @*@Html.ValidationMessageFor(u => u.UserName)*@
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(u => u.Password, new { @class = "label" })
-        </div>
-        <div class="editor-field">
-            @Html.PasswordFor(u => u.Password, new { @class = "pass" })
-            @*@Html.ValidationMessageFor(u => u.Password)*@
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(u => u.Confirm, new { @class = "label" })
-        </div>
-        <div class="editor-field">
-            @Html.PasswordFor(u => u.Confirm, new { @class = "pass" })
-            @*@Html.ValidationMessageFor(u => u.Password)*@
-        </div>
-        <br />
-        <input type="submit" value="Register" />
-        <div class="text-danger">
-            @Html.ValidationSummary(false)
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <div class="jumbotron" style="background-color: rgba(245, 245, 245, 0.5);">
+            <h1>Create a new account</h1>
+            <div class="editor-label">
+                @Html.LabelFor(u => u.UserName, new { @class = "label" })
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(u => u.UserName, new { @class = "text" })
+                @*@Html.ValidationMessageFor(u => u.UserName)*@
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(u => u.Password, new { @class = "label" })
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(u => u.Password, new { @class = "pass" })
+                @*@Html.ValidationMessageFor(u => u.Password)*@
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(u => u.Confirm, new { @class = "label" })
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(u => u.Confirm, new { @class = "pass" })
+                @*@Html.ValidationMessageFor(u => u.Password)*@
+            </div>
+            <br />
+            <input type="submit" value="Register" />
+            <div class="text-danger">
+                @Html.ValidationSummary(false)
+            </div>
         </div>
     </div>
         }
+    </body>
+</html>
