@@ -11,15 +11,15 @@ namespace ProjectDataAccess
 
         public short UserId { get; set; }
 
-        public int GallonsRequested { get; set; }
+        public double? GallonsRequested { get; set; }
 
-        public DateTime? DeliveryDate { get; set; }
+        public string DeliveryDate { get; set; }
 
         public string DeliveryAddress { get; set; }
 
-        public int SuggestedPrice { get; set; }
+        public double SuggestedPrice { get; set; }
 
-        public int TotalAmountDue { get; set; }
+        public double TotalAmountDue { get; set; }
 
     }
 }

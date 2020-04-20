@@ -39,7 +39,7 @@ namespace LoginInMVC4WithEF.Models
         [Required]
         [StringLength(9, MinimumLength = 5, ErrorMessage = "ZIP Code must be atleast 5 characters long and no more than 9")]
         [Display(Name = "ZIP Code ")]
-        public string PinCode { get; set; }
+        public string ZipCode { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "Address cannot exceed 100 characters")]
@@ -50,31 +50,30 @@ namespace LoginInMVC4WithEF.Models
         [Display(Name = "Address 2 ")]
         public string Address2 { get; set; }
 
-        [Required(ErrorMessage = "Please enter you full name")]
+        [Required(ErrorMessage = "Please enter your full name")]
         [StringLength(50, ErrorMessage = "Full Name cannot exceed 50 characters")]
         [Display(Name = "Full Name ")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Please enter gallons requested")]
+        //[Required]
         [Display(Name = "Gallons Requested ")]
-        public int GallonsRequested { get; set; }
+        public double? GallonsRequested { get; set; }
 
 
         [StringLength(100)]
         [Display(Name = "Delivery Address ")]
         public string DeliveryAddress { get; set; }
 
-        [Required(ErrorMessage = "Please select a delivery date")]
         [Display(Name = "Delivery Date ")]
         public DateTime DeliveryDate { get; set; }
 
         [Required]
         [Display(Name = "Suggested Price ")]
-        public int SuggestedPrice { get; set; }
+        public double SuggestedPrice { get; set; }
 
         [Required]
         [Display(Name = "Total Amount Due ")]
-        public int TotalAmountDue { get; set; }
+        public double TotalAmountDue { get; set; }
 
         [Required(ErrorMessage = "Please enter password.")]
         [DataType(DataType.Password)]

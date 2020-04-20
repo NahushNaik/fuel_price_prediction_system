@@ -38,7 +38,8 @@ namespace LoginInMVC4WithEF.Controllers
                                     new FuelQuoteForm{
                                                 GallonsRequested = 50,
                                                 SuggestedPrice = 5000,
-                                                DeliveryDate = DateTime.Parse("2020-04-03")
+                                                //DeliveryDate = DateTime.Parse("2020-04-03")
+                                                DeliveryDate = "2020-04-03"
                                             },
                                 };
         }
@@ -112,7 +113,7 @@ namespace LoginInMVC4WithEF.Controllers
                 User u = intList[0];
                 if (u.LoginId == reg.UserName)
                 {
-                    if (u.FullName == reg.FullName && u.Address1 == reg.Address1 && u.Address2 == reg.Address2 && u.City == reg.City && u.State == reg.State && u.ZipCode == reg.PinCode)
+                    if (u.FullName == reg.FullName && u.Address1 == reg.Address1 && u.Address2 == reg.Address2 && u.City == reg.City && u.State == reg.State && u.ZipCode == reg.ZipCode)
                     {
                         RedirectToRouteResult url = RedirectToAction("FuelQuoteForm", "User");
                         return url;
@@ -138,7 +139,7 @@ namespace LoginInMVC4WithEF.Controllers
                 User u = intListu[0];
                 List<FuelQuoteForm> intListf = l.FuelQuoteFormUser();
                 FuelQuoteForm f = intListf[0];
-                if (f.GallonsRequested == reg.GallonsRequested && f.SuggestedPrice == reg.SuggestedPrice && f.DeliveryDate == reg.DeliveryDate && u.Address1 == reg.Address1 && u.Address2 == reg.Address2)
+                if (f.GallonsRequested == reg.GallonsRequested && f.SuggestedPrice == reg.SuggestedPrice && f.DeliveryDate.ToString() == reg.DeliveryDate.ToString() && u.Address1 == reg.Address1 && u.Address2 == reg.Address2)
                 {
                     RedirectToRouteResult url = RedirectToAction("FuelQuoteHistory", "User");
                     return url;

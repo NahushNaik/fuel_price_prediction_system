@@ -5,15 +5,15 @@
 }
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("GetPrice", "User", FormMethod.Post))
 {
     <div class="divcheck">
         <h1>Fuel  Quote Form</h1>
+
         <div class="editor-label">
             @Html.Label("Gallons Requested -", new { @class = "label" })
-            <!--@Html.LabelFor(u => u.GallonsRequested)-->
+            @*@Html.LabelFor(u => u.GallonsRequested)*@
         </div>
-
         <div class="editor-field">
             @Html.TextBoxFor(u => u.GallonsRequested)
             @*@Html.ValidationMessageFor(u => u.GallonsRequested)*@
@@ -21,56 +21,56 @@
 
         <div class="editor-label">
             @Html.Label("Delivery Address -", new { @class = "label" })
-            <!--@Html.LabelFor(u => u.DeliveryAddress)-->
+            @*@Html.LabelFor(u => u.DeliveryAddress)*@
         </div>
-
         <div class="editor-field">
             @*@Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = "4045 Linkwood Drive, 742"})*@
-            @Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = ViewData["DeliveryAddress"].ToString() })
+            @Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = ViewData["DeliveryAddress"] })
             @*@Html.TextBoxFor(u => u.DeliveryAddress, new { disabled = "true", @Value = Model.DeliveryAddress })*@
             @*@Html.ValidationMessageFor(u => u.DeliveryAddress)*@
         </div>
 
         <div class="editor-label">
             @Html.Label("Delivery Date -", new { @class = "label" })
-            <!--  @Html.LabelFor(u => u.DeliveryDate)-->
+            @*@Html.LabelFor(u => u.DeliveryDate)*@
         </div>
-
-        <div class="editor-field">
-            @Html.TextBoxFor(u => u.DeliveryDate)
-            @*@Html.ValidationMessageFor(u => u.DeliveryDate)*@
-            @*@Html.TextBoxFor(u => u.DeliveryDate, "{0:dd-MM-yyyy}", new { htmlAttributes = new { @class = "datepicker" } })*@
-            @*<input type="date" class="form-control">*@
+        <div>
+            <form>
+                @*<label for="deliverydate">Delivery Date -</label><br>*@
+                @Html.TextBoxFor(u => u.DeliveryDate, new { @class = "datepicker" })
+                @*@Html.ValidationMessageFor(u => u.DeliveryDate)*@
+                @*<input type="date" id="deliverydate">*@
+            </form>
         </div>
 
         <div class="editor-label">
             @Html.Label("Suggested Price -", new { @class = "label" })
-            <!--@Html.LabelFor(u => u.SuggestedPrice)-->
+            @*@Html.LabelFor(u => u.SuggestedPrice)-->*@
         </div>
-
         <div class="editor-field">
-            @Html.TextBoxFor(u => u.SuggestedPrice, new { disabled = "true", @Value = 50 })
+            @Html.TextBoxFor(u => u.SuggestedPrice, new { disabled = "true" })
             @Html.ValidationMessageFor(u => u.SuggestedPrice)
         </div>
 
         <div class="editor-label">
             @Html.Label("Total Amount Due - ", new { @class = "label" })
-            <!-- @Html.LabelFor(u => u.TotalAmountDue)-->
+            @*@Html.LabelFor(u => u.TotalAmountDue)*@
         </div>
-
         <div class="editor-field">
+
             @Html.TextBoxFor(u => u.TotalAmountDue, new
             {
                 disabled = "true",
-                @Value = 5000
             })
             @Html.ValidationMessageFor(u => u.TotalAmountDue)
         </div>
+
         <br />
 
         <div>
-            <input type="button" value="Get Quote" onclick="@("location.href='" + Url.Action("FuelQuoteForm", "User") + "'")" />
-            <input type="submit" value="Accept Quote" />
+            @*<input type="button" value="Get Quote" onclick="@("location.href='" + Url.Action("GetQuote", "User") + "'")" EnableEventValidation="false"/>*@
+            <input type="submit" value="Get Price" id="GQ" />
+            @*<input type="submit" value="Accept Quote" onclick="@("location.href='" + Url.Action("FuelQuoteForm", "User") + "'")" />*@
         </div>
 
         <div class="text-danger">
@@ -79,19 +79,22 @@
 
     </div>
 }
-@*<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
-    @section scripts{
-        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
-        <script>
-            $(function () {
-                $('.datepicker').datepicker({
-                    dateFormat: 'dd/mm/yy',
-                    changeMonth: true,
-                    changeYear: true
-                });
+@section scripts{
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $.noConflict();
+            $(".datepicker").datepicker({
+                dateFormat: 'dd/mm/yy',
+                minDate: -0,
             });
-        </script>
-        }*@
+        });
+    </script>
 
+}
