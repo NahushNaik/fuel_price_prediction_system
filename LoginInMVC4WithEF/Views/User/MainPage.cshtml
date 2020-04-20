@@ -1,10 +1,25 @@
-﻿@{
+﻿@model ProjectDataAccess.User
+@{
     ViewBag.Title = "MainPage";
 }
-    <div class="divcheck">
-        <h2>Welcome!</h2>
-        <input type="button" value="Profile" onclick="@("location.href='" + Url.Action("ClientProfile", "User") + "'")"/>
-        <input type="button" value="New Fuel Quote" onclick="@("location.href='" + Url.Action("FuelQuoteForm", "User") + "'")"/>
-        <input type="button" value="Fuel Quote History" onclick="@("location.href='" + Url.Action("FuelQuoteHistory", "User") + "'")"/>
-        <input type="button" value="Logout" onclick="@("location.href='" + Url.Action("Login", "User") + "'")"/>
+@{ 
+    var name = "";
+    if (Model.FullName == null)
+    {
+        name = Model.LoginId;
+    }
+    else
+    {
+        name = Model.FullName;
+    }
+
+}
+<div class="divcheck">
+    <div>
+        <h2>Welcome! @name</h2>
     </div>
+    <input type="button" value="Profile" onclick="@("location.href='" + Url.Action("ClientProfile", "User") + "'")" />
+    <input type="button" value="New Fuel Quote" onclick="@("location.href='" + Url.Action("FuelQuoteForm", "User") + "'")" />
+    <input type="button" value="Fuel Quote History" onclick="@("location.href='" + Url.Action("FuelQuoteHistory", "User") + "'")" />
+    <input type="button" value="Logout" onclick="@("location.href='" + Url.Action("Login", "User") + "'")" />
+</div>

@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "ThankYou";
+}
+
+<div class="divcheck">
+    <h2>Thank You! Your order has been placed successfully.</h2>
+    <input type="button" value="Go To Home" onclick="@("location.href='" + Url.Action("MainPage", "User") + "'")" />
+</div>

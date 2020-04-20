@@ -39,6 +39,7 @@
             </div>
             <br />
             <input type="submit" value="Register" />
+            <input type="button" value="Login Page" onclick="@("location.href='" + Url.Action("Login", "User") + "'")" />
             <div class="text-danger">
                 @Html.ValidationSummary(false)
             </div>

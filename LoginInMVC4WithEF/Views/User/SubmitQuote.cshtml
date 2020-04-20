@@ -64,8 +64,9 @@
 
         <div>
             @*<input type="button" value="Get Quote" onclick="@("location.href='" + Url.Action("GetQuote", "User") + "'")" EnableEventValidation="false"/>*@
-            <input type="submit" value="Submit Quote"/>
-            <input type="button" value="Make New Quote" onclick="@("location.href='" + Url.Action("FuelQuoteForm", "User") + "'")"/>
+            <input type="submit" value="Submit Quote" />
+            <input type="button" value="Make New Quote" onclick="@("location.href='" + Url.Action("FuelQuoteForm", "User") + "'")" />
+            <input type="button" value="Go To Home" onclick="@("location.href='" + Url.Action("MainPage", "User") + "'")" />
             @*<input type="submit" value="Accept Quote" onclick="@("location.href='" + Url.Action("FuelQuoteForm", "User") + "'")" />*@
         </div>
 

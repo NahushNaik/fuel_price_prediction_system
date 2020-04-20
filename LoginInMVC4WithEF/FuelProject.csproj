@@ -440,6 +440,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\User\MainPage.cshtml" />
     <Content Include="Views\User\SubmitQuote.cshtml" />
+    <Content Include="Views\User\ThankYou.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

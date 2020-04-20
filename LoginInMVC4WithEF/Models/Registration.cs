@@ -77,7 +77,7 @@ namespace LoginInMVC4WithEF.Models
 
         [Required(ErrorMessage = "Please enter password.")]
         [DataType(DataType.Password)]
-        [MinLength(8, ErrorMessage = "Password must be atleast 8 characters long")]
+        //[MinLength(8, ErrorMessage = "Password must be atleast 8 characters long")]
         [Display(Name = "Password")]
         public string Password { get; set; }
 

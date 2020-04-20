@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace LoginInMVC4WithEF.Controllers
 {
@@ -38,7 +39,18 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpGet]
         public ActionResult MainPage()
         {
-            return View();
+            string username = null;
+            string userid = null;
+            if (Request.Cookies["userid"] != null)
+                userid = Request.Cookies["userid"].Value;
+            if (Request.Cookies["username"] != null)
+                username = Request.Cookies["username"].Value;
+            using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
+            {
+                User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == username).FirstOrDefault();
+                return View(userobj);
+            }
+                
         }
 
         [HttpGet]
@@ -257,7 +269,7 @@ namespace LoginInMVC4WithEF.Controllers
                     HttpCookie username = new HttpCookie("username");
                     username.Value = userr.UserName;
                     Response.Cookies.Add(username);
-                    MessageBox.Show("Login Successful");
+                    //MessageBox.Show("Login Successful");
                     //TempData["msg"] = "<script>alert('Recored inserted successfully');</script>";
                     //ViewBag.Message = "Recored inserted successfully";
                     using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
@@ -302,17 +314,26 @@ namespace LoginInMVC4WithEF.Controllers
                 ModelState.Remove("DeliveryDate");
                 ModelState.Remove("SuggestedPrice");
                 ModelState.Remove("TotalAmountDue");
+                string MatchPasswordPattern = @"(?=^.{8,15}$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?!.*\s).*$";
+                if ((user.Password != null) && (!(Regex.IsMatch(user.Password, MatchPasswordPattern))))
+                {
+                    ModelState.AddModelError("Password Length Check", "Password should be minimum 8 charcters long");
+                    ModelState.AddModelError("Password Regex Check", "Password should contain atleast 1 lowercase, 1 uppercase, 1 special character");
+                }
+
                 if (ModelState.IsValid)
                 {
                     using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
                     {
                         User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == user.UserName).FirstOrDefault();
                         bool isExist = true;
+                        
                         if (userobj == null)
                         {
                             userobj = new User();
                             isExist = false;
                             userobj.LoginId = user.UserName;
+                            //var crypto = new SimpleCrypto.PBKDF2();
                             userobj.Password = user.Password;
                             userobj.IsActive = true;
                             userobj.NewUser = true;
@@ -376,6 +397,7 @@ namespace LoginInMVC4WithEF.Controllers
             {
 
                 ModelState.Remove("Password");
+                //ModelState.Remove("ConfirmPassword");
                 ModelState.Remove("UserName");
                 ModelState.Remove("GallonsRequested");
                 ModelState.Remove("DeliveryAddress");
@@ -395,6 +417,10 @@ namespace LoginInMVC4WithEF.Controllers
                         userobj.City = users.City;
                         userobj.State = users.State;
                         userobj.ZipCode = users.ZipCode;
+                        //if (users.ChangePassword != null)
+                        //{
+                        //    userobj.Password = users.ChangePassword;
+                        //}
                         userobj.NewUser = false;
                         dbContext.Commit();
                         return RedirectToAction("MainPage", "User");
@@ -465,7 +491,7 @@ namespace LoginInMVC4WithEF.Controllers
                             userobj.SelectedItem = userobj.State;
                             ViewBag.User = userobj;
                         }
-                        ModelState.AddModelError("", "Data is not correct");
+                        ModelState.AddModelError("", "");
                     }
                 }
             }
@@ -533,8 +559,8 @@ namespace LoginInMVC4WithEF.Controllers
                         };
                         dbContext.FuelQuoteFormRepository.Add(obj);
                         dbContext.Commit();
-                        MessageBox.Show("Thank You! Your order has been placed successfully");
-                        return RedirectToAction("MainPage", "User");
+                        //MessageBox.Show("Thank You! Your order has been placed successfully.");
+                        return RedirectToAction("ThankYou", "User");
                     }
                     else
                     {
@@ -559,7 +585,10 @@ namespace LoginInMVC4WithEF.Controllers
 
             return View();
         }
-
+        public ActionResult ThankYou() 
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult GetPrice(Models.Registration users)
@@ -654,7 +683,8 @@ namespace LoginInMVC4WithEF.Controllers
         private bool IsValid(string email, string password)
         {
             bool IsValid = false;
-
+            var crypto = new SimpleCrypto.PBKDF2();
+            string decrypto = crypto.Compute(password);
             using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
             {
                 User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == email).FirstOrDefault();
