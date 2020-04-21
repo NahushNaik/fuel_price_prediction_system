@@ -39,6 +39,11 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpGet]
         public ActionResult MainPage()
         {
+            if (Session["ValidLogin"].Equals(false))
+            {
+                MessageBox.Show("Please login again");
+                return RedirectToAction("LogIn", "User");
+            }
             string username = null;
             string userid = null;
             if (Request.Cookies["userid"] != null)
@@ -50,7 +55,6 @@ namespace LoginInMVC4WithEF.Controllers
                 User userobj = dbContext.UserRepository.GetAll().Where(x => x.LoginId == username).FirstOrDefault();
                 return View(userobj);
             }
-                
         }
 
         [HttpGet]
@@ -161,6 +165,11 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpGet]
         public ActionResult FuelQuoteForm()
         {
+            if (Session["ValidLogin"].Equals(false))
+            {
+                MessageBox.Show("Please login again");
+                return RedirectToAction("LogIn", "User");
+            }
             string username = null;
             string userid = null;
             try
@@ -195,6 +204,11 @@ namespace LoginInMVC4WithEF.Controllers
         [HttpGet]
         public ActionResult FuelQuoteHistory()
         {
+            if (Session["ValidLogin"].Equals(false))
+            {
+                MessageBox.Show("Please login again");
+                return RedirectToAction("LogIn", "User");
+            }
             IEnumerable<FuelQuoteForm> list = null;
             using (var dbContext = new UnitOfWorkFinance<FinTechFinanceDbContext>())
             {
@@ -243,6 +257,12 @@ namespace LoginInMVC4WithEF.Controllers
                 }
             }
             return View(list);
+        }
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            Session["ValidLogin"] = false;
+            return RedirectToAction("Login", "User");
         }
 
         [HttpPost]
@@ -659,7 +679,7 @@ namespace LoginInMVC4WithEF.Controllers
                     }
                 }
             }
-            catch 
+            catch (Exception ex)
             { 
             
             }
@@ -672,12 +692,7 @@ namespace LoginInMVC4WithEF.Controllers
             return View(u);
         }
 
-        public ActionResult LogOut()
-        {
-            Session["ValidLogin"] = false;
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "User");
-        }
+        
 
 
         private bool IsValid(string email, string password)

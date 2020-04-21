@@ -38,8 +38,8 @@
                 @*@Html.ValidationMessageFor(u => u.Password)*@
             </div>
             <br />
-            <input type="submit" value="Register" />
-            <input type="button" value="Login Page" onclick="@("location.href='" + Url.Action("Login", "User") + "'")" />
+            <input type="submit" class="btn btn-primary" value="Register" />
+            <input type="button" value="Back" onclick="@("location.href='" + Url.Action("Login", "User") + "'")" />
             <div class="text-danger">
                 @Html.ValidationSummary(false)
             </div>

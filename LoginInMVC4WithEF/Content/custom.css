@@ -1,0 +1,16 @@
+﻿.table {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.nahush-div {
+    position: relative;
+}
+
+.nahush-btn {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 70px;
+    background-color: #007BFF;
+    color:white;
+}

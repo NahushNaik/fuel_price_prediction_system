@@ -6,63 +6,75 @@
 @{
     var user = ViewBag.User;
 }
-@using (Html.BeginForm())
-{
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+</head>
+    <body>
+        @using (Html.BeginForm())
+        {
 
-    <div class="divcheck">
-        <h1>Client Profile Form</h1>
-        <div class="row">
-            <div class="editor-label">
-                @Html.Label("Full Name", new { @class = "label" })
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(u => u.FullName)
-                @*@Html.TextBoxFor(u => u.FullName, new { @Value = user.FullName })*@
-            </div>
+        <div class="divcheck" >
+            <script src="~/Scripts/bootstrap.min.js"></script>
+            <div class="jumbotron style="background-color: rgba(245, 245, 245, 0.5);">
+                <h1>Client Profile Form</h1>
+                <div class="row">
+                    <div class="editor-label">
+                        @Html.Label("Full Name", new { @class = "label" })
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(u => u.FullName)
+                        @*@Html.TextBoxFor(u => u.FullName, new { @Value = user.FullName })*@
+                    </div>
 
-            <div class="editor-label">
-                @Html.Label("Address 1", new { @class = "label" })
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(u => u.Address1)
-                @*@Html.TextBoxFor(u => u.Address1, new { @Value = user.Address1 })*@
-            </div>
+                    <div class="editor-label">
+                        @Html.Label("Address 1", new { @class = "label" })
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(u => u.Address1)
+                        @*@Html.TextBoxFor(u => u.Address1, new { @Value = user.Address1 })*@
+                    </div>
 
-            <div class="editor-label">
-                @Html.Label("Address 2", new { @class = "label" })
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(u => u.Address2)
-                @*@Html.TextBoxFor(u => u.Address2, new { @Value = user.Address2 })*@
-            </div>
+                    <div class="editor-label">
+                        @Html.Label("Address 2", new { @class = "label" })
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(u => u.Address2)
+                        @*@Html.TextBoxFor(u => u.Address2, new { @Value = user.Address2 })*@
+                    </div>
 
-            <div class="editor-label">
-                @Html.Label("City", new { @class = "label" })
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(u => u.City)
-                @*@Html.TextBoxFor(u => u.City, new { @Value = user.City })*@
-            </div>
+                    <div class="editor-label">
+                        @Html.Label("City", new { @class = "label" })
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(u => u.City)
+                        @*@Html.TextBoxFor(u => u.City, new { @Value = user.City })*@
+                    </div>
 
-            <div class="editor-label">
-                @Html.Label("State", new { @class = "label" })
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(u => u.State, new SelectList(user.SDL, "Value", "Text", user.SelectedItem))
-            </div>
+                    <div class="editor-label">
+                        @Html.Label("State", new { @class = "label" })
+                    </div>
 
-            <div class="editor-label">
-                @Html.Label("Pin Code", new { @class = "label" })
+                    <div class="editor-field">
+                        @Html.DropDownListFor(u => u.State, new SelectList(user.SDL, "Value", "Text", user.SelectedItem), new { @class = "label" })
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.Label("Pin Code", new { @class = "label" })
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(u => u.ZipCode)
+                        @*@Html.TextBoxFor(u => u.ZipCode, new { @Value = user.ZipCode })*@
+                    </div>
+                    <br /><br />
+                              <input type="submit" class="nahush-btn" value="Save Profile" />
+                    <div class="text-danger">
+                        @Html.ValidationSummary(false)
+                    </div>
+                </div>
             </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(u => u.ZipCode)
-                @*@Html.TextBoxFor(u => u.ZipCode, new { @Value = user.ZipCode })*@
             </div>
-            <br />
-            <input type="submit" value="Save Profile" />
-            <div class="text-danger">
-                @Html.ValidationSummary(false)
-            </div>
-        </div>
-    </div>
-}
+        }
+    </body>
+</html>
